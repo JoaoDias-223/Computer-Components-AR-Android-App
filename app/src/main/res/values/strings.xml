@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Rosas de Ouro - VR</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_mainScreen">Rosas de Ouro</string>
+    <string name="title_middle_activity">Ponte</string>
+    <string name="title_unity_activity">Unity</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_title">Rosas de Ouro</string>
+
+    <!-- activity main -->
+    <string name="tutorial_title">Tutorial</string>
+    <string name="tutorial_first_tip">1. Clique no ícone do mapa, para ver as localizações dos carros alegóricos:</string>
+    <string name="tutorial_second_tip">2. Ir até uma das localizações apontadas no mapa.</string>
+    <string name="tutorial_third_tip">3. Toque no ícone da câmera para ver o carro alegórico:</string>
+    <string name="mapImage_contentDescription">Imagem do google maps</string>
+
+    <!--Unity-->
+    <string name="game_view_content_description">Game view</string>
+
+</resources>
