@@ -1,3 +1,0 @@
-include ':app'
-rootProject.name='BennyLoCopy'
-include ':OpenCV_3_4_3'
