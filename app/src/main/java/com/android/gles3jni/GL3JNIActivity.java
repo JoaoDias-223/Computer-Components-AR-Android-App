@@ -144,7 +144,7 @@ public class GL3JNIActivity extends AppCompatActivity implements CameraBridgeVie
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        Log.d(TAG, "onCameraFrame: called!");
+        //Log.d(TAG, "onCameraFrame: called!");
         Mat input = inputFrame.rgba();
         if (gl3_loaded) {
             GL3JNILib.setNewImage(input.nativeObj);

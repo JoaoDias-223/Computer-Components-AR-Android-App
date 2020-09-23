@@ -1,4 +1,4 @@
-package com.ctr_fei.bennylocopy;
+package com.android.gles3jni;
 
 public abstract class Component_Base {
 

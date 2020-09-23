@@ -1092,7 +1092,7 @@ void ModelRegistration(void){
 
     MODEL_POS.x = (float) (MODEL_POS.x - 0.1); // Avera_des0.x;
     MODEL_POS.y = (float) (tanD * MODEL_POS.x + bD + 87); // Avera_des0.y;
-    LOGI("----------- MODEL_POS.x = %.4f  MODEL_POS.y = %.4f", MODEL_POS.x, MODEL_POS.y);
+    //LOGI("----------- MODEL_POS.x = %.4f  MODEL_POS.y = %.4f", MODEL_POS.x, MODEL_POS.y);
 
     PROJ[0] = 30;
     PROJ[1] = (float) -angD;

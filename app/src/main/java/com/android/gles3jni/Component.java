@@ -1,13 +1,14 @@
-package com.ctr_fei.bennylocopy;
+package com.android.gles3jni;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.opengl.GLES30;
 import android.util.Log;
 
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 
-public class Component extends Component_Base{
+public class Component extends Component_Base {
 
     //opengl variables
     private int positionHandle;
@@ -55,8 +56,8 @@ public class Component extends Component_Base{
         Log.d(name, "called Setup()");
         Initialized = true;
 
-        int vertComp = J_OpenGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vertexShader.getShaderCode());
-        int fragComp = J_OpenGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShader.getShaderCode());
+        int vertComp = loadShader(GLES20.GL_VERTEX_SHADER, vertexShader.getShaderCode());
+        int fragComp = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShader.getShaderCode());
 
         program = GLES20.glCreateProgram();
 
@@ -82,6 +83,15 @@ public class Component extends Component_Base{
         return false;
     }
 
+    public static int loadShader(int type, String shaderCode){
+
+        int shader = GLES30.glCreateShader(type);
+
+        GLES30.glShaderSource(shader, shaderCode);
+        GLES30.glCompileShader(shader);
+
+        return shader;
+    }
 
     public Obj getObj() {
         return obj;

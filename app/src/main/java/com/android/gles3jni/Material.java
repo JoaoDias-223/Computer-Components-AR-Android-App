@@ -15,6 +15,8 @@ public class Material {
     private Vector<Mtl> Materials;
     private HashMap<String, Mtl> ListOfMaterials;
 
+    private boolean loaded = false;
+
     public Material(Context context, String file){
         Materials = new Vector<>();
         ListOfMaterials = new HashMap<>();
@@ -64,12 +66,15 @@ public class Material {
                     mtl++;
                 }
             }
-        }catch (IOException e){
-            Log.d(TAG, "Couldn't load " + file);
+
+            loaded = true;
+        }
+        catch (IOException e){
+            Log.d(TAG, "Couldn't load '" + file + "'");
             e.printStackTrace();
 
         }finally{
-            Log.d(TAG, file + " was loaded successfully");
+            if (loaded) Log.d(TAG, "'" + file + "' was loaded successfully");
             if(mtl == 4){
                 Materials.add(new Mtl(name, ambient, diffuse, specular, specCoef));
                 ListOfMaterials.put(name, new Mtl(name, ambient, diffuse, specular, specCoef));

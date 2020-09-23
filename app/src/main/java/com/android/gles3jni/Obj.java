@@ -32,6 +32,8 @@ public class Obj {
     private HashMap<String, Vector<Float>> NewRelationMON;
     private HashMap<String, Vector<Float>> NewRelationMOT;
 
+    private boolean loaded = false;
+
     /*Constructor*/
     public Obj(Context context, String file){
 
@@ -185,12 +187,14 @@ public class Obj {
                 }
             }
 
-        }catch (IOException e){
-            Log.d(TAG, "Couldn't load " + file);
+            loaded = true;
+        }
+        catch (IOException e){
+            Log.d(TAG, "Couldn't load '" + file + "'");
             e.printStackTrace();
 
         }finally{
-            Log.d(TAG, file + " was loaded successfully");
+            if (loaded) Log.d(TAG, "'" + file + "' was loaded successfully");
             if (reader != null){
                 try{
                     reader.close();

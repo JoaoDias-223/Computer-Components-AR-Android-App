@@ -1,5 +1,7 @@
-set(pathToProject C:/Users/joao_vitor/AndroidStudioProjects/GLES3JNI)
-set(pathToOpenCv C:/Users/joao_vitor/Downloads/opencv-3.4.3-android-sdk/OpenCV-android-sdk)
+set(pathToProject D:/Projects/GitHub/Computer-Components-AR-Android-App)
+# D:/Projects/GitHub/Computer-Components-AR-Android-App
+set(pathToOpenCv D:/Installers/INSTALADORES DE APPS/opencv-3.4.3-android-sdk/OpenCV-android-sdk)
+# D:/Installers/INSTALADORES DE APPS/opencv-3.4.3-android-sdk/OpenCV-android-sdk
 
 cmake_minimum_required(VERSION 3.4.1)
 

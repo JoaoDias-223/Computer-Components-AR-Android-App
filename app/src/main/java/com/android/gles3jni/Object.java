@@ -26,6 +26,8 @@ public class Object {
     private int DiffuseHandle;
     private int SpecularHandle;
     private int LightPosHandle;
+    private int LightColorHandle;
+    private int ViewPosHandle;
 
     private Shader VertexShader;
     private Shader FragmentShader;
@@ -49,8 +51,8 @@ public class Object {
         Obj = new Obj(context, objName);
         Mtl = new Material(context, mtlName);
 
-        VertexShader = new Shader (context, "SimpleVert.vsh");
-        FragmentShader = new Shader (context, "SimpleFrag.fsh");
+        VertexShader = new Shader (context, "NiceVert.vsh");
+        FragmentShader = new Shader (context, "NiceFrag.fsh");
 
         int VertComp = loadShader(GLES30.GL_VERTEX_SHADER, VertexShader.getShaderCode());
         int FragComp = loadShader(GLES30.GL_FRAGMENT_SHADER, FragmentShader.getShaderCode());
@@ -136,19 +138,23 @@ public class Object {
         DiffuseHandle = GLES30.glGetUniformLocation(Program, "diffuse");
         SpecularHandle = GLES30.glGetUniformLocation(Program, "specular");
         LightPosHandle = GLES30.glGetUniformLocation(Program, "lightPos");
+        LightColorHandle = GLES30.glGetUniformLocation(Program, "lightColor");
+        ViewPosHandle = GLES30.glGetUniformLocation(Program, "viewPos");
 
         //Set positions
         vertBuffer.position(0);
         GLES30.glEnableVertexAttribArray(PositionHandle);
         GLES30.glVertexAttribPointer(PositionHandle, 3, GLES30.GL_FLOAT, true, 12, vertBuffer);
+        GLES30.glUniform3fv(ViewPosHandle, 1, new float[]{0.0f, 0.0f, 0.0f}, 0);
 
         //Set normals
         normBuffer.position(0);
         GLES30.glEnableVertexAttribArray(NormalHandle);
         GLES30.glVertexAttribPointer(NormalHandle, 3, GLES30.GL_FLOAT, true, 12, normBuffer);
 
-        //Set light position
+        //Set light variables
         GLES30.glUniform3fv(LightPosHandle, 1, lightPos, 0);
+        GLES30.glUniform3fv(LightColorHandle, 1, new float[]{1.0f, 1.0f, 1.0f}, 0);
 
         //Set colors
         GLES30.glUniform3fv(AmbientHandle, 1, ambient, 0);

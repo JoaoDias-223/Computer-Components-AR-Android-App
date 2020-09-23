@@ -32,7 +32,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     float car_x = 0.0f;
     float car_y = 0.0f;
     float car_z = -3.5f;
-    float scaleFactor = 0.13f;
+    float scaleFactor = 0.01f;
     float rotXangle = 0;
     float rotYangle = 0;
 
@@ -68,7 +68,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
 
         if(!activityRef.changeOrient) {
-            carro = new Object(context, "carro_alegorico.obj", "carro_alegorico.mtl");
+            carro = new Object(context, "chip_centro_certo.obj", "chip_centro_certo.mtl");
             activityRef.CarroSub = carro;
         }
     }
@@ -100,7 +100,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
 
         if(GL3JNILib.isReadyToDraw()) {
-            Log.d(TAG, "onDrawFrame: DRAWING CAR...");
+            //Log.d(TAG, "onDrawFrame: DRAWING CAR...");
             car_x = GL3JNILib.getCarX();
             car_y = GL3JNILib.getCarY();
             rotXangle = GL3JNILib.getPFProjZero();
@@ -121,14 +121,14 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             if (!activityRef.changeOrient) {
                 for (String Key : carro.getObj().getListOfMaterialsString()) {
                     carro.Draw(mMVPMatrix, mModelMatrix, Key, scaleFactor);
-                    Log.d(TAG, "onDrawFrame: draw car");
+                    //Log.d(TAG, "onDrawFrame: draw car");
                 }
 
                 carro.setFirstRun(false);
             } else {
                 for (String Key : activityRef.CarroSub.getObj().getListOfMaterialsString()) {
                     activityRef.CarroSub.Draw(mMVPMatrix, mModelMatrix, Key, scaleFactor);
-                    Log.d(TAG, "onDrawFrame: draw car_sub");
+                    //Log.d(TAG, "onDrawFrame: draw car_sub");
                 }
 
                 activityRef.CarroSub.setFirstRun(false);
