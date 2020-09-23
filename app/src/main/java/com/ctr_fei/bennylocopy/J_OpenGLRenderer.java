@@ -70,6 +70,7 @@ public class J_OpenGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+
         float[] scratch = new float[16];
 
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -81,7 +82,11 @@ public class J_OpenGLRenderer implements GLSurfaceView.Renderer {
         surface.updateTexImage();
         surface.getTransformMatrix(mtx);
 
-        CameraScene.draw();
+        //CameraScene.draw();
+
+        if (!CarroAlegorico.isFirstRun()){
+            Log.d(TAG, "=========== DESENHANDO CARRO =============");
+        }
 
         for(String Key : CarroAlegorico.getObj().getListOfMaterialsString()){
             CarroAlegorico.Draw(scratch, rotationMatrix, Key, 0.12f);
