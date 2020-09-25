@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -90,11 +91,11 @@ public class GL3JNIActivity extends AppCompatActivity implements CameraBridgeVie
 
         if (checkAllPermissions()) {
 
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             l_layout = (RelativeLayout) findViewById(R.id.linearLayoutRest);
             mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.opencv_camera_surface_view);
             mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
-            mOpenCvCameraView.setMaxFrameSize(1280, 720); /* cap it at 720 for performance issue */
+            mOpenCvCameraView.setMaxFrameSize(1920, 1080); /* cap it at 720 for performance issue */
             mOpenCvCameraView.setCvCameraViewListener(this);
             mOpenCvCameraView.disableView();
 
@@ -146,9 +147,9 @@ public class GL3JNIActivity extends AppCompatActivity implements CameraBridgeVie
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         //Log.d(TAG, "onCameraFrame: called!");
         Mat input = inputFrame.rgba();
-        if (gl3_loaded) {
-            GL3JNILib.setNewImage(input.nativeObj);
-        }
+        //if (gl3_loaded) {
+          //  GL3JNILib.setNewImage(input.nativeObj);
+        //}
         //don't show on the java side
         return null;
     }

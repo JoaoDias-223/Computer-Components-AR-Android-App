@@ -72,55 +72,39 @@ bool VideoRenderer::setup(){
 bool VideoRenderer::initTexture(cv::Mat frame){
     texture_id = texture.initializeTexture(frame.data, frame.size().width, frame.size().height);
     //binds our texture in Texture Unit 0
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE1);
+    glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_id);
-    glUniform1i(textureSamplerID, 0);
+    glUniform1i(textureSamplerID, texture_id);
+
+    LOGI("Renderer Texture ID = %d\n", texture_id);
 
     return true;
 }
 
-/**
- * Renderer the frame onto screen using texture mapping
- */
 void VideoRenderer::render(cv::Mat frame){
-    //our vertices
-    const GLfloat g_vertex_buffer_data[] = {
-             1.0f,   1.0f,  0.99f,
-            -1.0f,   1.0f,  0.99f,
-            -1.0f,  -1.0f,  0.99f,
-             1.0f,   1.0f,  0.99f,
-            -1.0f,  -1.0f,  0.99f,
-             1.0f,  -1.0f,  0.99f
-    };
-    //UV map for the vertices
-    const GLfloat g_uv_buffer_data[] = {
-            1.0f, 0.0f,
-            0.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 1.0f
-    };
 
     const GLfloat gltestVert[] = {
 //            x        y
-            -1.0f,   1.0f,  0.99f,   //bottom left   0
-            -1.0f,  -1.0f,  0.99f,   //upper left    1
-             1.0f,  -1.0f,  0.99f,   //upper right   2
-            -1.0f,   1.0f,  0.99f,   //bottom left   0
-             1.0f,  -1.0f,  0.99f,   //upper right   2
-             1.0f,   1.0f,  0.99f,   //bottom right  3
+            -1.0f,   .75f,  0.9999f,   //bottom left   0
+            -1.0f,  -.75f,  0.9999f,   //upper left    1
+             1.0f,  -.75f,  0.9999f,   //upper right   2
+            -1.0f,   .75f,  0.9999f,   //bottom left   0
+             1.0f,  -.75f,  0.9999f,   //upper right   2
+             1.0f,   .75f,  0.9999f,   //bottom right  3
     };
 
     const GLfloat gltestUv[] = {
 //            x        y
-             0.0f,   0.0f,  //0.99f,   //bottom left    0
              0.0f,   1.0f,  //0.99f,   //upper left     1
              1.0f,   1.0f,  //0.99f,   //upper right    2
-             0.0f,   0.0f,  //0.99f,   //bottom left    0
-             1.0f,   1.0f,  //0.99f,   //upper right    2
              1.0f,   0.0f,  //0.99f,   //bottom right   3
+             0.0f,   1.0f,  //0.99f,   //upper left     1
+             1.0f,   0.0f,  //0.99f,   //bottom right   3
+             0.0f,   0.0f,  //0.99f,   //bottom left    0
     };
+
+    //LOGI("Renderer Texture ID = %d\n", texture_id);
 
     glUseProgram(gProgram);
     shader.checkGlError("glUseProgram");

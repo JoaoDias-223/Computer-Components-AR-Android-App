@@ -33,9 +33,6 @@ add_library(main_simple SHARED
         Shader.cpp
         Texture.cpp
         VideoRenderer.cpp
-        Config.cpp
-        Percurso.cpp
-        PathFinder.cpp
         )
 
 add_library( lib_opencv SHARED IMPORTED )

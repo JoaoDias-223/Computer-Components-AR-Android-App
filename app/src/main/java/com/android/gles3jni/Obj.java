@@ -171,7 +171,7 @@ public class Obj {
                 else if(parts[0].equals("usemtl")){
                     if(!checkWordStr(parts[1], ListOfMaterialsString)){
                         currentMtl = ListOfMaterialsInt.size();
-                        //Log.d(TAG, "currentMtl value: " + currentMtl);
+                        Log.d(TAG, "currentMtl value: " + currentMtl);
 
                         currentName = parts[1];
                         ListOfMaterialsString.add(parts[1]);

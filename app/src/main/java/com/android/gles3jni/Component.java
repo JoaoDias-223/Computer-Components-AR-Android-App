@@ -32,7 +32,7 @@ public class Component extends Component_Base {
 
     public Component(){}
 
-    public Component (Obj obj, Material mtl, Shader vertexShader, Shader fragmentShader){
+    public Component (Obj obj, Mtl mtl, Shader vertexShader, Shader fragmentShader){
         this.obj = obj;
         this.mtl = mtl;
         this.vertexShader = vertexShader;
@@ -45,7 +45,7 @@ public class Component extends Component_Base {
                       String vertexShader_filename, String fragmentShader_filename)
     {
         this.obj = new Obj(context, obj_filename);
-        this.mtl = new Material(context, mtl_filename);
+        this.mtl = new Mtl(context, mtl_filename);
         this.vertexShader = new Shader(context, vertexShader_filename);
         this.fragmentShader = new Shader(context, fragmentShader_filename);
 
@@ -101,11 +101,11 @@ public class Component extends Component_Base {
         this.obj = obj;
     }
 
-    public Material getMtl() {
+    public Mtl getMtl() {
         return mtl;
     }
 
-    public void setMtl(Material mtl) {
+    public void setMtl(Mtl mtl) {
         this.mtl = mtl;
     }
 

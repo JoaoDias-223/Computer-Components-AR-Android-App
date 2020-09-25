@@ -26,8 +26,7 @@ void Shader::printGLString(const char *name, GLenum s) {
  * Error checking with OpenGL calls
  */
 void Shader::checkGlError(const char* op) {
-    for (GLint error = glGetError(); error; error
-                                                    = glGetError()) {
+    for (GLint error = glGetError(); error; error= glGetError()) {
         LOGI("After %s() glError (0x%x)\n", op, error);
     }
 }

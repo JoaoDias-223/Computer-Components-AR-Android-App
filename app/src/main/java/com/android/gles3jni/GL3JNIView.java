@@ -15,6 +15,7 @@ import android.opengl.Matrix;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 
 import androidx.core.content.ContextCompat;
 
@@ -46,6 +47,7 @@ class GL3JNIView extends GLSurfaceView {
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         setEGLContextClientVersion(3);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         renderer = new GLRenderer(context, (GL3JNIActivity) context);
         setRenderer(renderer);

@@ -16,16 +16,9 @@ public class GL3JNILib {
     public static native void setImage(long imageRGBA);
 
     public static native void toggleFeatures();
-    public static native float getCarX();
-    public static native float getCarY();
     public static native void setNewImage(long imageRGBA);
 
     public static native void setWidthAndHeight(int width, int height);
     public static native boolean isReadyToDraw();
-    public static native int getInitialStatus();
-    public static native float getPFAspectRatio();
-    public static native float getPFAngle();
-    public static native float getPFProjZero();
-    public static native float getPFProjOne();
 
 }

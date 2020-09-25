@@ -6,30 +6,28 @@ out vec4 FragColor;
 
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 UV;
+
+uniform sampler2D textureSampler;
 
 //uniform vec3 ambient;
-uniform lowp vec3 diffuse;
+//uniform lowp vec3 diffuse;
 //uniform vec3 specular;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
+uniform vec3 objectColor;
 
-vec3 CalculateColor();
+vec4 CalculateColor();
 
 void main() {
-    /*
-    vec3 result = diffuse;
-    gl_FragColor = vec4(result.xyz, 1.0);
-    */
-
-    vec3 result = CalculateColor();
-
-    FragColor = vec4(result.xyz, 1.0);
+    vec4 result = CalculateColor();
+    vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
+    vec4 red = vec4(0.5, 0.0, 0.0, 1.0);
+    FragColor = result;
 }
 
-vec3 CalculateColor(){
-    vec3 objectColor = diffuse;
-
+vec4 CalculateColor(){
     // ambient
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
@@ -47,7 +45,11 @@ vec3 CalculateColor(){
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
     vec3 specular = specularStrength * spec * lightColor;
 
-    vec3 result = (ambient + diffuse + specular) * objectColor;
+    vec4 result =   vec4(1.0, 1.0, 1.0, 1.0)
+                    //* vec4((ambient + diffuse + specular), 1.0)
+                    //* vec4(objectColor, 1.0)
+                    * vec4(texture(textureSampler, UV).rgba)
+            ;
 
     return result;
 }

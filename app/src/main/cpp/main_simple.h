@@ -29,7 +29,6 @@
 #include "VideoRenderer.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
-#include "PathFinder.h"
 
 #if DYNAMIC_ES3
 //#include "gl3stub.h"
@@ -52,7 +51,6 @@
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
 
 extern bool setupGraphics(int w, int h);
-extern void processFrame(cv::Mat *frame_local);
 extern void renderFrame();
 
 #endif

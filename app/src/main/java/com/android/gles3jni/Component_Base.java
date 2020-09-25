@@ -7,7 +7,7 @@ public abstract class Component_Base {
 
     //model data
     Obj obj;
-    Material mtl;
+    Mtl mtl;
 
     //shaders
     Shader vertexShader;

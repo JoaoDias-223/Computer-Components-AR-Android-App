@@ -18,6 +18,7 @@
         android:xlargeScreens="true"/>
 
     <application
+        android:debuggable="true"
         android:largeHeap="true"
         android:allowBackup="true"
         android:fullBackupContent="false"
