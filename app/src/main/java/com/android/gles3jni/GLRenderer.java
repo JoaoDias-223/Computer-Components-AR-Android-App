@@ -32,11 +32,13 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     private final float[] mLightPosInModelSpace = new float[] {0.0f, 0.0f, 0.0f, 1.0f}; //Used to hold a light centered on the origin in model space.
     private final float[] mLightPosInWorldSpace = new float[4]; //Used to hold the current position of the light in world space
     private final float[] mLightPosInEyeSpace = new float[4]; //Used to hold the transformed position of the light in eye space
+    private final float[] scale_matrix = new float[16];
+
+    public float scaleFactor = 0.005f;
 
     float car_x = 0.0f;
     float car_y = 0.0f;
     float car_z = -3.5f;
-    float scaleFactor = 0.005f;
     float rotXangle = -45;
     float rotYangle = -45;
 
@@ -112,11 +114,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
             //rotXangle = 90;
             //rotYangle = 180;
-            rotXangle += 1;
-            rotYangle += 1;
+            //rotXangle += 1;
+            //rotYangle += 1;
             Matrix.rotateM(mModelMatrix, 0, rotXangle, 1.0f, 0.0f, 0.0f);
             Matrix.rotateM(mModelMatrix, 0, rotYangle, 0.0f, 1.0f, 0.0f);
 
+            //Creation of mvp matrix
             Matrix.multiplyMM(mMVPMatrix, 0, mModelMatrix, 0, mViewMatrix, 0);
             Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mMVPMatrix, 0);
 

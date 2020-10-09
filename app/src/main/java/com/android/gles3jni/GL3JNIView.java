@@ -2,6 +2,7 @@ package com.android.gles3jni;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
@@ -12,10 +13,13 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import androidx.core.content.ContextCompat;
 
@@ -32,7 +36,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * A simple application that uses OpenGL ES3 and GLSurface
  */
-class GL3JNIView extends GLSurfaceView {
+class GL3JNIView extends GLSurfaceView{
 
     private static final String TAG = "GL3JNIView";
 

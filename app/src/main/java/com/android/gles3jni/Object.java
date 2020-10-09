@@ -3,6 +3,7 @@ package com.android.gles3jni;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.opengl.GLES30;
 import android.opengl.GLUtils;
 import android.util.Log;
@@ -36,8 +37,9 @@ public class Object {
     private int ViewPosHandle;
     private int ObjectColorHandle;
     private int TextureSamplerHandle;
+    private int TextureBumpMapHandle;
     private int TextureCoordinateHandle;
-    private int TextureIDHandle;
+    private int[] TextureIDHandle = new int[16];
 
     private Shader VertexShader;
     private Shader FragmentShader;
@@ -55,9 +57,9 @@ public class Object {
         Obj = new Obj(context, objName);
         Mtl = new Mtl(context, mtlName);
 
-        Log.d(TAG, "OBJ Vertices Keyset: " + Obj.getNewRelationMOV().keySet().toString());
-        Log.d(TAG, "OBJ Normal Keyset: " + Obj.getNewRelationMON().keySet().toString());
-        Log.d(TAG, "OBJ Texture Keyset: " + Obj.getNewRelationMOT().keySet().toString());
+        //Log.d(TAG, "OBJ Vertices Keyset: " + Obj.getNewRelationMOV().keySet().toString());
+        //Log.d(TAG, "OBJ Normal Keyset: " + Obj.getNewRelationMON().keySet().toString());
+        //Log.d(TAG, "OBJ Texture Keyset: " + Obj.getNewRelationMOT().keySet().toString());
 
         //printMap(Obj.getNewRelationMOT());
 
@@ -75,7 +77,8 @@ public class Object {
         glLinkProgram(Program);
         glValidateProgram(Program);
 
-        TextureIDHandle = loadTexture(context, "chip_diffuse.jpg", GL_TEXTURE0);
+        TextureIDHandle[0] = loadTexture(context, "chip_diffuse_resized.jpg", GL_TEXTURE0);
+        TextureIDHandle[1] = loadTexture(context, "chip_bump.jpg", GL_TEXTURE1);
 
         vertMap = new HashMap<>();
         normMap = new HashMap<>();
@@ -96,12 +99,12 @@ public class Object {
 
                 //Normals
                 float[] normals = ConvertVectorToArray(this.Obj.getNewRelationMON().get(Material));
-                scale3dModel(scaleFactor, normals);
+                //scale3dModel(scaleFactor, normals);
 
                 float[] textures = ConvertVectorToArray(this.Obj.getNewRelationMOT().get(Material));
                 //scale3dModel(scaleFactor, textures);
 
-                printArray(textures, textures.length, 2);
+                //printArray(textures, textures.length, 2);
 
                 FloatBuffer tempVert = setFBuffer(positions, positions.length);
                 FloatBuffer tempNorm = setFBuffer(normals, normals.length);
@@ -198,8 +201,10 @@ public class Object {
         glVertexAttribPointer(TextureCoordinateHandle, 2, GL_FLOAT, true, 8, texBuffer);
 
         //Set Texture
-        bindTexture(TextureIDHandle, GL_TEXTURE0);
-        glUniform1i(TextureSamplerHandle, TextureIDHandle);
+        bindTexture(TextureIDHandle[0], GL_TEXTURE0);
+        glUniform1i(TextureSamplerHandle, TextureIDHandle[0]);
+        bindTexture(TextureIDHandle[1], GL_TEXTURE0);
+        glUniform1i(TextureSamplerHandle, TextureIDHandle[1]);
 
         //Set light variables
         glUniform3fv(LightPosHandle, 1, lightPos, 0);
@@ -235,6 +240,7 @@ public class Object {
         TextureCoordinateHandle = glGetAttribLocation(Program, "vTextureCoordinates");
         MVPMatrixHandle = glGetUniformLocation(Program, "uMVPMatrix");
         TextureSamplerHandle = glGetUniformLocation(Program, "textureSampler");
+        TextureBumpMapHandle = glGetUniformLocation(Program, "bumpMap");
 
         glEnableVertexAttribArray(PositionHandle);
         glEnableVertexAttribArray(TextureCoordinateHandle);
@@ -246,8 +252,12 @@ public class Object {
         glVertexAttribPointer(TextureCoordinateHandle, 2, GL_FLOAT, true, 8, texBuffer);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TextureIDHandle);
-        glUniform1i(TextureSamplerHandle, TextureIDHandle);
+        glBindTexture(GL_TEXTURE_2D, TextureIDHandle[0]);
+        glUniform1i(TextureSamplerHandle, TextureIDHandle[0]);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, TextureIDHandle[1]);
+        glUniform1i(TextureBumpMapHandle, TextureIDHandle[1]);
 
         glUniformMatrix4fv(MVPMatrixHandle, 1, false, mvpMatrix, 0);
 
@@ -278,17 +288,23 @@ public class Object {
             InputStream inputStreamer = context.getAssets().open(filename);
             texture = BitmapFactory.decodeStream(inputStreamer);
 
+            Bitmap h_inverted_texture;
+            Matrix matrix = new Matrix();
+            matrix.preScale(-1.0f, 1.0f);
+            h_inverted_texture = Bitmap.createBitmap(texture, 0, 0, texture.getWidth(), texture.getHeight(), matrix, true);
+
             // Set filtering
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-            GLUtils.texImage2D(GL_TEXTURE_2D, 0, texture, 0);
+            GLUtils.texImage2D(GL_TEXTURE_2D, 0, h_inverted_texture, 0);
 
             bindTexture(textureHandle[0], GL_TEXTURE);
 
             texture.recycle();
+            h_inverted_texture.recycle();
 
             Log.d(TAG, "Loaded texture '" + filename + "'");
             Log.d(TAG, "Object Texture ID: " + textureHandle[0]);

@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.android.gles3jni"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,6 +33,26 @@ android {
             version "3.10.2"
 
         }
+    }
+    ndkVersion '21.3.6528147'
+
+    packagingOptions {
+        //c++ libs
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi/libc++_shared.so'
+        pickFirst 'lib/mips/libc++_shared.so'
+        pickFirst 'lib/mips64/libc++_shared.so'
+        //open cv libs
+        pickFirst 'lib/x86/libopencv_java3.so'
+        pickFirst 'lib/x86_64/libopencv_java3.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_java3.so'
+        pickFirst 'lib/arm64-v8a/libopencv_java3.so'
+        pickFirst 'lib/armeabi/libopencv_java3.so'
+        pickFirst 'lib/mips/libopencv_java3.so'
+        pickFirst 'lib/mips64/libopencv_java3.so'
     }
 }
 

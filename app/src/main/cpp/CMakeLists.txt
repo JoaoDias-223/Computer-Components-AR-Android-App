@@ -1,7 +1,5 @@
 set(pathToProject D:/Projects/GitHub/Computer-Components-AR-Android-App)
-# D:/Projects/GitHub/Computer-Components-AR-Android-App
 set(pathToOpenCv D:/Installers/INSTALADORES DE APPS/opencv-3.4.3-android-sdk/OpenCV-android-sdk)
-# D:/Installers/INSTALADORES DE APPS/opencv-3.4.3-android-sdk/OpenCV-android-sdk
 
 cmake_minimum_required(VERSION 3.4.1)
 
@@ -51,4 +49,5 @@ target_link_libraries(main_simple
         m
         ${log-lib}
         lib_opencv
-        libc++)
+        libc++
+        )
